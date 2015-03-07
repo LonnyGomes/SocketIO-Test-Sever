@@ -38,10 +38,13 @@ $(function () {
 
         var blast = $blastField.val();
         if (blast.length) {
-            socket.emit("blast", {msg: blast},
-                function (data) {
-                    $blastField.val('');
-                });
+            socket.emit("blast", {
+                timeStamp: Date.now(),
+                msg: blast
+            }, function (data) {
+                $blastField.val('');
+            });
+            console.log("why though");
         }
 
 
