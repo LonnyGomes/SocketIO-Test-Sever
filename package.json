@@ -12,6 +12,9 @@
     "ejs": "~0.8.5",
     "express-device": "~0.3.7"
   },
+  "scripts": {
+    "start": "grunt build && node server.js"
+  },
   "devDependencies": {
     "grunt": "~0.4.1",
     "bower": "~0.9.2",
