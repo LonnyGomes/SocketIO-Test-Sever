@@ -36,23 +36,24 @@ app.get("/", function(req, res){
 
 
 io.sockets.on('connection', function (socket) {
-	io.sockets.emit('blast', {
+    io.sockets.emit('blast', {
         timeStamp: Date.now(),
         msg: "<span style=\"color:red !important\">someone connected</span>"
     });
 
-	socket.on('blast', function(data, fn){
-		console.log(data);
-		io.sockets.emit('blast', {
+    socket.on('blast', function(data, fn){
+        console.log(data);
+        io.sockets.emit('blast', {
             timeStamp: Date.now(),
             msg: data.msg
         });
 
-		fn();//call the client back to clear out the field
-	});
-
+        fn();//call the client back to clear out the field
+    });
 });
 
 
-server.listen(runningPortNumber);
+server.listen(runningPortNumber, function() {
+    console.log("Running server on port " + runningPortNumber);
+});
 
