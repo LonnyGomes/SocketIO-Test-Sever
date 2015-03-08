@@ -57,6 +57,9 @@ app.post('/upload',[ multer({
             io.sockets.emit('upload', {
                 timeStamp: Date.now(),
                 msg: "Uploaded to " + url,
+                mimeType: file.mimetype,
+                fileName: file.name,
+                extension: file.extension,
                 url: url
             });
         }
