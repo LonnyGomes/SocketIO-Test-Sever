@@ -18,16 +18,21 @@ $(function () {
     var $blastField = $('#blast'),
         $allPostsTextArea = $('#allPosts'),
         $clearAllPosts = $('#clearAllPosts'),
-        $sendBlastButton = $('#send');
+        $sendBlastButton = $('#send'),
+        updateTextArea = function ( data) {
+            var copy = $allPostsTextArea.html();
+            $allPostsTextArea.html('<p>' + copy + data.msg + "</p>");
+            $allPostsTextArea.scrollTop($allPostsTextArea[0].scrollHeight - $allPostsTextArea.height());
+        };
 
 
     //SOCKET STUFF
     socket.on("blast", function (data) {
-        var copy = $allPostsTextArea.html();
-        $allPostsTextArea.html('<p>' + copy + data.msg + "</p>");
-        $allPostsTextArea.scrollTop($allPostsTextArea[0].scrollHeight - $allPostsTextArea.height());
-        //.css('scrollTop', $allPostsTextArea.css('scrollHeight'));
+        updateTextArea(data);
+    });
 
+    socket.on("upload", function (data) {
+        updateTextArea(data);
     });
 
     $clearAllPosts.click(function (e) {

@@ -46,10 +46,19 @@ app.get("/upload", function(req, res) {
 app.post('/upload',[ multer({
         dest: './uploads/',
         rename: function (fieldname, filename) {
-            return fieldname + filename + "_" + Date.now();
+            return filename + "_" + Date.now();
         },
         onFileUploadComplete: function (file, req, res) {
-            console.log(file.fieldname + ' uploaded to  ' + file.path)
+            var port = runningPortNumber,
+                url = req.protocol + '://' + req.hostname  +
+                      ( port === 80 || port === 443 ? '' : ':' + port ) + '/' +
+                      file.path;
+
+            io.sockets.emit('upload', {
+                timeStamp: Date.now(),
+                msg: "Uploaded to " + url,
+                url: url
+            });
         }
     }), function(req, res) {
         console.log(req.body); // form fields
@@ -92,6 +101,7 @@ app.use(function(err, req, res, next) {
 // socket io code
 io.sockets.on('connection', function (socket) {
     io.sockets.emit('blast', {
+        type: "system",
         timeStamp: Date.now(),
         msg: "<span style=\"color:red !important\">someone connected</span>"
     });
@@ -99,6 +109,7 @@ io.sockets.on('connection', function (socket) {
     socket.on('blast', function(data, fn){
         console.log(data);
         io.sockets.emit('blast', {
+            type: "notification",
             timeStamp: Date.now(),
             msg: data.msg
         });
