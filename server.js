@@ -10,12 +10,14 @@ var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
 var bodyParser = require('body-parser');
+var multer = require('multer');
 
 var runningPortNumber = process.env.PORT || 7777;
 
 
 // I need to access everything in '/public' directly
 app.use(express.static(__dirname + '/public'));
+app.use('/uploads', express.static(__dirname + '/uploads'));
 
 //set the view engine
 app.set('view engine', 'ejs');
@@ -37,6 +39,24 @@ app.get("/", function(req, res){
     res.render('index', {});
 });
 
+app.get("/upload", function(req, res) {
+    res.end("what goes there");
+});
+
+app.post('/upload',[ multer({
+        dest: './uploads/',
+        rename: function (fieldname, filename) {
+            return fieldname + filename + "_" + Date.now();
+        },
+        onFileUploadComplete: function (file, req, res) {
+            console.log(file.fieldname + ' uploaded to  ' + file.path)
+        }
+    }), function(req, res) {
+        console.log(req.body); // form fields
+        console.log(req.files); // form files
+        res.status(204).end();
+   }
+]);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

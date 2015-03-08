@@ -11,6 +11,7 @@
     "ejs": "~0.8.5",
     "express": "^4.0.0",
     "express-device": "~0.3.7",
+    "multer": "^0.1.8",
     "socket.io": "^1.0.6"
   },
   "scripts": {
