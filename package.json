@@ -7,10 +7,11 @@
   "private": true,
   "repository": "",
   "dependencies": {
-    "express": "~3.4.6",
-    "socket.io": "~0.9.16",
+    "body-parser": "^1.12.0",
     "ejs": "~0.8.5",
-    "express-device": "~0.3.7"
+    "express": "^4.0.0",
+    "express-device": "~0.3.7",
+    "socket.io": "^1.0.6"
   },
   "scripts": {
     "start": "grunt build && node server.js"
