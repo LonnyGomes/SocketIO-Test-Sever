@@ -26,3 +26,6 @@ node_modules
 bower_components
 
 .DS_Store
+uploads/
+public/js/concat.js
+public/js/app.min.js
