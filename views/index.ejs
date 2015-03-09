@@ -17,6 +17,9 @@
             button:focus {
                 outline: none !important;
             }
+            body {
+                background-color: #f2f2f2;
+            }
 
             #allPosts {
                 resize: none;
@@ -33,6 +36,15 @@
                 padding:0;
             }
 
+            .jumbotron {
+                background-color: rgba(6, 20, 69, 0.84);
+                color: #ffffff;
+            }
+
+            #send {
+                margin: 10px 0px;
+            }
+
         </style>
     </head>
     <body>
@@ -43,31 +55,46 @@
 
     <div class="container">
         <div class="jumbotron">
-            <h1>SocketIOServer</h1>
-               <p>Example socket io server</p>
-               <div class="row">
-                   <div class="col-md-4 col-sm-6 col-xs-6">
-                       <h3>All Chatter<button id="clearAllPosts" type="button" class="btn btn-danger btn-xs pull-right">clear</button></h3>
-                       <div id="allPosts" class="form-control"></div>
-                    <div class="input-group">
-                        <input id="blast" type="text" class="form-control" placeholder="send something to everyone">
-                        <span class="input-group-btn">
-                            <button id="send" class="btn btn-success" type="button">Send</button>
-                        </span>
-                    </div><!-- /input-group -->
-                   </div>
-               </div>
-               <div class="row">
-                    <form action="/upload" method="post" enctype="multipart/form-data">
-                        Select file to upload:
-                        <input type="file" name="fileToUpload" id="fileToUpload">
-                        <input type="submit" value="Upload Image" name="submit">
-                    </form>
-               </div>
+            <h1>E-Reader Command Server</h1>
+               <p>Dispatches notifications and syncs uploads with all connected e-reader clients.</p>
         </div>
     </div>
-    
-    <!-- jQuery --> 
+
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h4>Notifications<button id="clearAllPosts" type="button" class="btn btn-danger btn-xs pull-right">clear</button></h4>
+                <div class="form-group">
+                    <div id="allPosts" class="form-control"></div>
+                </div>
+                <div class="form-group">
+                    <input id="blast" type="text" class="form-control" placeholder="Enter notification to dispatch">
+                    <button id="send" class="btn btn-success" type="button">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <h4>Uploads</h4>
+                <form action="/upload" method="post" enctype="multipart/form-data">
+
+                    <div class="form-group">
+                        <label class="form-control" for="fileToUpload">Select file to upload</label>
+
+                        <input type="file" name="fileToUpload" id="fileToUpload">
+                    </div>
+
+                    <button type="submit" value="Upload File" name="submit" class="btn btn-success">Upload</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="public/bower_components/jQuery/jquery.min.js"><\/script>')</script>
 
@@ -76,15 +103,5 @@
 
     <!-- APP CODE -->
     <script src="js/app.min.js"></script>
-
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-    <script>
-        (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-        e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-        e.src='//www.google-analytics.com/analytics.js';
-        r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-        ga('create','UA-XXXXX-X');ga('send','pageview');
-    </script>
     </body>
 </html>
